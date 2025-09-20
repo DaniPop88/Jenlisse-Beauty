@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund Policy | Jenlisse Beauty Studio</title>
+  <link rel="icon" type="image/png" href="image/FAVICON.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #95A5E6;
+      --primary-dark: #5A65A2;
+      --accent: #C92D2F;
+      --dark: #16323B;
+      --light: #F6F7FC;
+      --radius: 1.2rem;
+      --shadow: 0 8px 36px 0 rgba(89,102,163,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      line-height: 1.7;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--primary-dark); text-decoration: none; }
+    a:hover { color: var(--accent); }
+    header {
+      width: 100%;
+      background: rgba(246,247,252,0.97);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      backdrop-filter: blur(6px);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      position: relative;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      font-family: 'Playfair Display', serif;
+    }
+    .nav-logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px 0 rgba(89,102,163,0.08);
+      background: #fff;
+    }
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 670px;
+      margin: 0 auto;
+      padding: 2.5rem 1.2rem 2rem 1.2rem;
+    }
+    .policy-container {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.2rem 2.3rem 2rem 2.3rem;
+      max-width: 670px;
+      margin: 0 auto 1.5rem auto;
+    }
+    @media (max-width: 600px) {
+      .policy-container { padding: 1.2rem 0.7rem 1.1rem 0.7rem; }
+    }
+    .policy-title {
+      font-size: 2.1rem;
+      color: var(--primary-dark);
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      margin-bottom: 1.1rem;
+      letter-spacing: .8px;
+      text-align: left;
+    }
+    .policy-section-title {
+      font-size: 1.21rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin: 1.4rem 0 .4rem 0;
+    }
+    .policy-desc, .policy-section {
+      color: #5A65A2;
+      font-size: 1.07rem;
+      margin-bottom: 1.1rem;
+      line-height: 1.7;
+    }
+    ul, ol { margin-left: 1.1rem; margin-bottom: 1rem; }
+    ul li, ol li { margin-bottom: .42rem; }
+    .footer {
+      background: var(--dark);
+      color: var(--light);
+      padding: 2rem 0 1rem;
+      margin-top: auto;
+      border-radius: var(--radius) var(--radius) 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      opacity: 0.12;
+      background: url('image/LOGO.png') no-repeat center center/contain;
+      z-index: 0;
+    }
+    .footer-container {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-brand {
+      flex: 1 1 220px;
+      margin-bottom: 1rem;
+      z-index: 2;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.14rem;
+      font-weight: 900;
+      gap: .5rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+    }
+    .footer-logo img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+    .footer-desc {
+      color: #dde2f8;
+      font-size: 0.97rem;
+      margin-bottom: .45rem;
+    }
+    .footer-links-group {
+      flex: 1 1 120px;
+      margin-bottom: 1rem;
+      z-index: 2;
+    }
+    .footer-links-title {
+      font-size: 1.01rem;
+      font-weight: 900;
+      margin-bottom: .2rem;
+      letter-spacing: .5px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--primary-dark);
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+    }
+    .footer-link {
+      color: #dde2f8;
+      font-size: .97rem;
+      opacity: .92;
+    }
+    .footer-link:hover { color: var(--primary); }
+    .footer-bottom {
+      text-align: center;
+      font-size: .97rem;
+      color: #dde2f8;
+      margin-top: .75rem;
+      opacity: .87;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-bottom a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    .footer-bottom a:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <img src="image/LOGO.png" alt="Jenlisse Beauty Studio Logo" />
+        Jenlisse Beauty Studio
+      </a>
+    </nav>
+  </header>
+  <main>
+    <div class="policy-container">
+      <div class="policy-title">Refund & Exchange Policy</div>
+      <div class="policy-desc">
+        At Jenlisse Beauty Studio, your satisfaction matters to us. We want you to feel confident in your experience with us, whether you’re booking a treatment or purchasing a product. Please read our refund and exchange policy below to understand your options and how we can assist you if you are not completely happy with your purchase.
+      </div>
+      <div class="policy-section-title">1. Service Satisfaction</div>
+      <div class="policy-section">
+        Our team works hard to deliver professional, high-quality beauty services. If you’re not satisfied with the outcome of your treatment, please let us know before you leave the studio. We will gladly discuss your concerns and, where possible, provide a touch-up or adjustment at no extra cost.
+      </div>
+      <div class="policy-section-title">2. Product Returns & Exchanges</div>
+      <div class="policy-section">
+        For hygiene and safety, most opened beauty and personal care products cannot be returned unless the item is defective or incorrect. If you receive a faulty, damaged, or wrong product, please contact us within 7 days of delivery, providing your order number and a clear photo of the item. We’ll review your request and arrange a replacement or refund as appropriate.
+      </div>
+      <div class="policy-section-title">3. Refund Process</div>
+      <div class="policy-section">
+        If your return or exchange is approved, we will process your refund to your original payment method or arrange an exchange. Refunds are typically completed within 7 business days after we receive the returned item and confirm its condition.
+      </div>
+      <div class="policy-section-title">4. Eligibility Criteria</div>
+      <div class="policy-section">
+        To qualify for a refund or exchange, please ensure:
+        <ul>
+          <li>You notify us within 7 days of receiving your order</li>
+          <li>The item is unused, in its original packaging, and includes any tags or seals (unless defective)</li>
+          <li>You present a valid proof of purchase (order confirmation, receipt, or invoice)</li>
+        </ul>
+      </div>
+      <div class="policy-section-title">5. Non-Refundable Services & Items</div>
+      <div class="policy-section">
+        The following are not eligible for refund or exchange:
+        <ul>
+          <li>Gift cards, promotional packages, and special offers</li>
+          <li>Services already rendered and accepted by the client</li>
+          <li>Products marked as final sale</li>
+        </ul>
+      </div>
+      <div class="policy-section-title">6. How to Request a Refund or Exchange</div>
+      <div class="policy-section">
+        Please email <a href="mailto:info@jenlissebeauty.com">info@jenlissebeauty.com</a> or call <a href="tel:+639641514471">+63 964 151 4471</a> with your order details, a brief description of the issue, and any supporting photos. Our team will review your request promptly and guide you through the next steps.
+      </div>
+      <div class="policy-section-title">7. Additional Support</div>
+      <div class="policy-section">
+        If you have any questions about your order, eligibility, or need help with a return, please don’t hesitate to contact us. We are here to help!
+      </div>
+      <div class="policy-section" style="color:#999;font-size:.96rem;text-align:right;">Last updated: <span id="policy-date"></span></div>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="image/LOGO.png" alt="Jenlisse Beauty Studio Logo" />
+          Jenlisse Beauty Studio
+        </div>
+        <div class="footer-desc">
+          Block 1 Lot 3, Purok 5, Extension, Putatan, City of Muntinlupa, NCR, Fourth District, 1772, Philippines<br>
+          Email: <a href="mailto:info@jenlissebeauty.com" style="color:var(--primary-dark);">info@jenlissebeauty.com</a><br>
+          Call / SMS: <a href="tel:+639641514471" style="color:var(--primary-dark);">+63 964 151 4471</a><br>
+          Registered Business Name: JENLISSE BEAUTY STUDIO<br>
+          Owner: Bautista, Jennilyn Surban<br>
+          Business Registration: 403-810-152-000<br>
+          VAT Registered
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Company</div>
+        <div class="footer-links">
+          <a href="index.html#about" class="footer-link">About Us</a>
+          <a href="index.html#shop" class="footer-link">Services</a>
+          <a href="index.html#contact" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Help</div>
+        <div class="footer-links">
+          <a href="index.html#testimonials" class="footer-link">Testimonials</a>
+          <a href="index.html#faq" class="footer-link">FAQ</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Legal</div>
+        <div class="footer-links">
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms.html" class="footer-link">Terms of Service</a>
+          <a href="refund-policy.html" class="footer-link">Refund Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="footer-year"></span> Jenlisse Beauty Studio | Business Registration: 403-810-152-000<br>
+      All content &copy; 2025 Jenlisse Beauty Studio. Proudly Muntinlupa, NCR.
+    </div>
+  </footer>
+  <script>
+    document.getElementById('policy-date').textContent = "September 20, 2025";
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
