@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jenlisse Beauty Studio | Beauty, Relaxation & Confidence in Muntinlupa</title>
+  <link rel="icon" type="image/png" href="image/FAVICON.png" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <!-- Remixicon for icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #95A5E6;   /* 2nd color from left, soft periwinkle */
+      --primary-dark: #5A65A2; /* 3rd color from left, muted blue */
+      --accent: #C92D2F;    /* 4th color, vivid red */
+      --dark: #16323B;      /* 5th color, deep teal */
+      --light: #F6F7FC;     /* 1st color, pale lilac */
+      --radius: 1.2rem;
+      --shadow: 0 8px 36px 0 rgba(89,102,163,0.14);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+    a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      transition: color .18s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: .7rem;
+    }
+    button, input {
+      font-family: inherit;
+      outline: none;
+      border: none;
+      background: none;
+    }
+    .header {
+      width: 100%;
+      background: rgba(246,247,252,0.97);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      backdrop-filter: blur(6px);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      position: relative;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      font-family: 'Playfair Display', serif;
+    }
+    .nav-logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px 0 rgba(89,102,163,0.08);
+      background: #fff;
+    }
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 2.1rem;
+      list-style: none;
+    }
+    .nav-link {
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.18rem 0;
+      letter-spacing: 0.5px;
+      transition: color .18s;
+    }
+    .nav-link.active, .nav-link:hover { color: var(--primary-dark); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-toggle {
+      display: none;
+      font-size: 2.1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary-dark);
+      margin-left: 1rem;
+      z-index: 200;
+    }
+    .floating-cart-btn {
+      position: fixed;
+      left: 32px;
+      bottom: 32px;
+      z-index: 150;
+      background: var(--primary-dark);
+      color: var(--light);
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.1rem;
+      box-shadow: 0 2px 14px 0 rgba(89,102,163,0.16);
+      cursor: pointer;
+      border: none;
+      transition: background .2s, color .2s, box-shadow .2s;
+    }
+    .floating-cart-btn:hover {
+      background: var(--accent);
+      color: var(--light);
+    }
+    @media (max-width: 500px) {
+      .floating-cart-btn {
+        left: 10px;
+        bottom: 10px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+      }
+    }
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(89,102,163,0.13);
+      z-index: 100;
+      display: none;
+    }
+    .cart-overlay.active { display: block; }
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 355px;
+      max-width: 99vw;
+      height: 100%;
+      background: var(--light);
+      box-shadow: -2px 0 20px 0 rgba(89,102,163,0.12);
+      z-index: 101;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: right .28s;
+      overflow-y: auto;
+    }
+    .cart-sidebar.open { right: 0; }
+    .cart-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .cart-sidebar-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+    }
+    .cart-sidebar-close {
+      font-size: 1.65rem;
+      color: var(--primary-dark);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      border-bottom: 1px solid #95A5E6;
+      padding-bottom: 1rem;
+    }
+    .cart-item-img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      border-radius: .6rem;
+      background: #dde2f8;
+    }
+    .cart-item-details { flex: 1; }
+    .cart-item-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .1rem;
+    }
+    .cart-item-price {
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: .1rem;
+      font-size: 0.97rem;
+    }
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      margin-top: .18rem;
+    }
+    .cart-item-qty-btn {
+      font-size: 1.08rem;
+      background: var(--light);
+      border-radius: .3rem;
+      padding: 2px 7px;
+      cursor: pointer;
+      color: var(--primary-dark);
+      border: 1px solid var(--primary);
+    }
+    .cart-item-qty-btn:hover {
+      background: var(--primary-dark);
+      color: var(--light);
+    }
+    .cart-item-remove {
+      color: var(--accent);
+      font-size: 1.13rem;
+      margin-left: .5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .cart-sidebar-footer {
+      margin-top: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.03rem;
+    }
+    .cart-sidebar-footer .checkout-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--accent);
+      color: var(--light);
+      border-radius: .55rem;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .cart-sidebar-footer .checkout-btn:hover {
+      background: var(--primary-dark);
+      color: var(--light);
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.1rem 3rem;
+    }
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.7rem;
+      background: linear-gradient(rgba(149,165,230,0.78),rgba(22,50,59,0.04)), url('image/placeholder.png') center/cover;
+      border-radius: var(--radius);
+      padding: 2.4rem 2.3rem;
+      margin-bottom: 2.2rem;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+      min-height: 340px;
+    }
+    .hero-content {
+      flex: 1 1 280px;
+      min-width: 260px;
+      z-index: 2;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.45rem;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.13;
+      margin-bottom: 1.1rem;
+      letter-spacing: 1.2px;
+      text-shadow: 0 2px 10px rgba(89,102,163,0.11);
+    }
+    .hero-desc {
+      color: var(--primary-dark);
+      font-size: 1.12rem;
+      margin-bottom: 1.5rem;
+      max-width: 490px;
+      text-shadow: 0 2px 10px rgba(89,102,163,0.08);
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1.05rem;
+    }
+    .btn-primary, .btn-secondary {
+      padding: 0.83rem 2.1rem;
+      font-size: 1.11rem;
+      border-radius: 2.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      box-shadow: 0 2px 10px 0 rgba(149,165,230,0.13);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      color: var(--light);
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1.1px;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: var(--light);
+    }
+    .btn-secondary {
+      background: var(--light);
+      color: var(--primary-dark);
+      border: 2px solid var(--primary-dark);
+    }
+    .btn-secondary:hover {
+      background: var(--primary-dark);
+      color: var(--light);
+    }
+    .hero-img-container {
+      min-width: 220px;
+      flex: 1 1 200px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 1;
+    }
+    .hero-img {
+      width: 300px;
+      max-width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 24px 0 rgba(149,165,230,.15);
+      background: var(--light);
+      object-fit: contain;
+      opacity: 0.94;
+    }
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 1.6rem;
+      margin-top: .8rem;
+      letter-spacing: 0.7px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.2rem;
+    }
+    .product-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform .17s, box-shadow .18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card:hover {
+      box-shadow: 0 16px 32px 0 rgba(22,50,59,0.11);
+      transform: translateY(-5px) scale(1.03);
+    }
+    .product-img {
+      width: 108px;
+      height: 108px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      background: var(--primary);
+      border-radius: .7rem;
+      transition: transform .22s;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.07) rotate(-2deg);
+    }
+    .product-name {
+      font-weight: 900;
+      font-size: 1.13rem;
+      text-align: center;
+      margin-bottom: .31rem;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--primary-dark);
+    }
+    .product-desc {
+      font-size: 0.99rem;
+      color: #5A65A2;
+      margin-bottom: 0.54rem;
+      text-align: center;
+    }
+    .product-stock {
+      font-size: 0.94rem;
+      margin-bottom: 0.19rem;
+      color: var(--primary-dark);
+    }
+    .product-price {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin-bottom: .7rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .product-add {
+      background: var(--primary-dark);
+      color: var(--light);
+      border-radius: .43rem;
+      padding: 0.61rem 1.16rem;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 0.99rem;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.4px;
+    }
+    .product-add:hover {
+      background: var(--accent);
+      color: var(--light);
+    }
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: .91rem;
+      padding: 0.16rem 0.59rem;
+      border-radius: .6rem;
+      letter-spacing: .6px;
+      box-shadow: 0 2px 8px 0 rgba(89,102,163,0.1);
+    }
+    .info-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    .info-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.08rem;
+      min-width: 225px;
+      flex: 1 1 225px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 370px;
+    }
+    .info-icon {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.6rem;
+    }
+    .info-title {
+      font-size: 1.09rem;
+      font-weight: 900;
+      margin-bottom: .3rem;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--primary-dark);
+    }
+    .info-desc {
+      color: #5A65A2;
+      font-size: 0.99rem;
+    }
+    .policy-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      justify-content: center;
+    }
+    .policy-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.1rem .7rem;
+      min-width: 220px;
+      flex: 1 1 190px;
+      max-width: 320px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+    .policy-title {
+      font-size: 1.14rem;
+      font-weight: 900;
+      margin-bottom: .49rem;
+      color: var(--primary-dark);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .policy-body {
+      color: #5A65A2;
+      font-size: 0.99rem;
+      line-height: 1.7;
+    }
+    .footer {
+      background: var(--dark);
+      color: var(--light);
+      padding: 2.1rem 0 0.9rem;
+      margin-top: 2.2rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -40px;
+      width: 280px;
+      height: 280px;
+      opacity: 0.12;
+      background: url('image/LOGO.png') no-repeat center center/contain;
+      z-index: 0;
+    }
+    .footer-container {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-brand {
+      flex: 1 1 220px;
+      margin-bottom: 1.5rem;
+      z-index: 2;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.19rem;
+      font-weight: 900;
+      gap: .5rem;
+      margin-bottom: 0.35rem;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+    }
+    .footer-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+    .footer-desc {
+      color: #dde2f8;
+      font-size: 0.97rem;
+      margin-bottom: .55rem;
+    }
+    .footer-links-group {
+      flex: 1 1 140px;
+      margin-bottom: 1.5rem;
+      z-index: 2;
+    }
+    .footer-links-title {
+      font-size: 1.01rem;
+      font-weight: 900;
+      margin-bottom: .28rem;
+      letter-spacing: .5px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--primary-dark);
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: .32rem;
+    }
+    .footer-link {
+      color: #dde2f8;
+      font-size: .97rem;
+      opacity: .92;
+    }
+    .footer-link:hover { color: var(--primary); }
+    .footer-bottom {
+      text-align: center;
+      font-size: .97rem;
+      color: #dde2f8;
+      margin-top: 1.15rem;
+      opacity: .87;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-bottom a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    .footer-bottom a:hover { color: var(--primary); }
+    .scroll-top-btn {
+      position: fixed;
+      right: 28px;
+      bottom: 32px;
+      z-index: 151;
+      background: var(--primary);
+      color: var(--dark);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.62rem;
+      box-shadow: 0 2px 12px 0 rgba(89,102,163,0.12);
+      cursor: pointer;
+      border: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s;
+    }
+    .scroll-top-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (max-width: 1100px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-content, .hero-img-container {
+        justify-content: center;
+      }
+      .hero-img {
+        margin: 1.6rem auto 0 auto;
+      }
+    }
+    @media (max-width: 900px) {
+      .nav-list { gap: 1rem; }
+      .footer-container {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+    }
+    @media (max-width: 700px) {
+      .nav { padding: 1.1rem .7rem; }
+      .main { padding: 1.1rem .5rem 2rem; }
+      .products-grid, .info-sections, .policy-sections { gap: 1rem; }
+      .footer-container { padding: 0 1.1rem; }
+      .nav-list {
+        position: fixed;
+        top: 0;
+        right: -100vw;
+        width: 80vw;
+        height: 100vh;
+        background: var(--light);
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-top: 4rem;
+        z-index: 120;
+        transition: right .23s;
+        box-shadow: -2px 0 20px 0 rgba(89,102,163,0.08);
+      }
+      .nav-list.open { right: 0; }
+      .nav-toggle { display: block; }
+      .nav-close { display: none; }
+      .nav-list .nav-close {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1.2rem;
+        background: none;
+        border: none;
+        font-size: 1.68rem;
+        color: var(--primary-dark);
+        cursor: pointer;
+        z-index: 999;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 1rem .5rem; }
+      .policy-card { padding: 0.9rem .35rem; }
+      .footer { padding: 1rem 0 .7rem; }
+    }
+    @media (max-width: 430px) {
+      .cart-sidebar {
+        width: 99vw;
+        padding: 0.7rem .35rem;
+      }
+      .footer-logo img {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <img src="image/LOGO.png" alt="Jenlisse Beauty Studio Logo" />
+        Jenlisse Beauty Studio
+      </a>
+      <ul class="nav-list" id="nav-list">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="#shop" class="nav-link">Services</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <button class="nav-close" id="nav-close" aria-label="Close menu"><i class="ri-close-line"></i></button>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu"><i class="ri-menu-3-line"></i></button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Floating Cart Button -->
+  <button class="floating-cart-btn" id="cart-btn" aria-label="Open cart">
+    <i class="ri-shopping-bag-3-line"></i>
+    <span id="cart-badge" style="position:absolute;top:8px;right:8px;background:var(--primary);color:var(--dark);font-size:.9rem;font-weight:700;border-radius:50%;padding:2px 8px;min-width:24px;text-align:center;display:none"></span>
+  </button>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top-btn" id="scroll-top-btn" aria-label="Scroll to top">
+    <i class="ri-arrow-up-s-line"></i>
+  </button>
+
+  <!-- Cart Sidebar & Overlay -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping cart">
+    <div class="cart-sidebar-header">
+      <div class="cart-sidebar-title">My Cart</div>
+      <button class="cart-sidebar-close" id="cart-close-btn" aria-label="Close cart"><i class="ri-close-line"></i></button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <!-- Cart items will be rendered here by JS -->
+    </div>
+    <div class="cart-sidebar-footer">
+      <span><span id="cart-items-count">0</span> items | <span id="cart-total">₱0</span></span>
+      <button class="checkout-btn" id="checkout-btn">Checkout</button>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1 class="hero-title">Welcome to Jenlisse Beauty Studio</h1>
+        <div class="hero-desc">
+          Experience beauty, relaxation, and confidence at Jenlisse Beauty Studio! Located in the heart of Muntinlupa City, we offer a wide range of professional beauty and spa services tailored to make you look and feel your best. Our friendly team of experts ensures that every visit is a pampering experience you deserve.<br><br>
+          <span style="color:var(--primary);font-weight:700;">Step in and let us bring out your natural beauty—because at Jenlisse Beauty Studio, you deserve to shine!</span>
+        </div>
+        <div class="hero-btns">
+          <a href="#shop" class="btn-primary">Book Now</a>
+          <a href="#about" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-img-container">
+        <img src="image/placeholder.png" alt="Jenlisse Beauty Studio Banner" class="hero-img" />
+      </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="info-sections" id="about">
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-star-line"></i></div>
+        <div class="info-title">Our Story</div>
+        <div class="info-desc">
+          Founded by Jennilyn Surban Bautista, Jenlisse Beauty Studio is dedicated to providing top-notch beauty services to the Muntinlupa community. Our mission is simple: to offer high-quality, affordable beauty solutions that make every client feel confident and refreshed.
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-heart-line"></i></div>
+        <div class="info-title">Our Values</div>
+        <div class="info-desc">
+          <b>Excellence:</b> Professional service with attention to detail<br>
+          <b>Care:</b> Personalized treatments for every client<br>
+          <b>Trust:</b> Safe, hygienic, and welcoming environment<br>
+          <b>Innovation:</b> Keeping up with the latest beauty trends
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-team-line"></i></div>
+        <div class="info-title">Our Goal</div>
+        <div class="info-desc">
+          We aim to be Muntinlupa’s go-to beauty studio, where every client leaves happier, healthier, and more confident.
+        </div>
+      </div>
+    </section>
+
+    <!-- Services / Products -->
+    <section id="shop">
+      <h2 class="section-title">Beauty Treatments & Products</h2>
+      <div class="products-grid" id="products-grid">
+        <div class="product-card" data-id="1">
+          <span class="product-badge">Qty: 10</span>
+          <img src="image/placeholder.png" alt="Anti-Aging Facial" class="product-img" />
+          <div class="product-name">Anti-Aging Facial</div>
+          <div class="product-desc">Revitalizing treatment to refresh your skin.</div>
+          <div class="product-price">₱899.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="2">
+          <span class="product-badge">Qty: 5</span>
+          <img src="image/placeholder.png" alt="Acne Care Facial" class="product-img" />
+          <div class="product-name">Acne Care Facial</div>
+          <div class="product-desc">For clearer skin and boosted confidence.</div>
+          <div class="product-price">₱799.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="3">
+          <span class="product-badge">Qty: 7</span>
+          <img src="image/placeholder.png" alt="Bridal Makeup" class="product-img" />
+          <div class="product-name">Bridal Makeup Package</div>
+          <div class="product-desc">Make your special day unforgettable.</div>
+          <div class="product-price">₱3500.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="4">
+          <span class="product-badge">Qty: 8</span>
+          <img src="image/placeholder.png" alt="Hair Color" class="product-img" />
+          <div class="product-name">Hair Color & Treatment</div>
+          <div class="product-desc">Vibrant color and healthy shine.</div>
+          <div class="product-price">₱1200.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="5">
+          <span class="product-badge">Qty: 6</span>
+          <img src="image/placeholder.png" alt="Nail Art" class="product-img" />
+          <div class="product-name">Nail Art & Care</div>
+          <div class="product-desc">Trendy designs and relaxing care.</div>
+          <div class="product-price">₱499.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="6">
+          <span class="product-badge">Qty: 9</span>
+          <img src="image/placeholder.png" alt="Massage Therapy" class="product-img" />
+          <div class="product-name">Massage Therapy</div>
+          <div class="product-desc">Relax and recharge with our spa packages.</div>
+          <div class="product-price">₱699.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="7">
+          <span class="product-badge">Qty: 4</span>
+          <img src="image/placeholder.png" alt="Eyebrow Threading" class="product-img" />
+          <div class="product-name">Eyebrow Threading & Tinting</div>
+          <div class="product-desc">Perfectly shaped brows, natural look.</div>
+          <div class="product-price">₱299.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="8">
+          <span class="product-badge">Qty: 7</span>
+          <img src="image/placeholder.png" alt="Eyelash Extensions" class="product-img" />
+          <div class="product-name">Eyelash Extensions</div>
+          <div class="product-desc">Longer, fuller lashes for a stunning gaze.</div>
+          <div class="product-price">₱999.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="9">
+          <span class="product-badge">Qty: 10</span>
+          <img src="image/placeholder.png" alt="Wellness Package" class="product-img" />
+          <div class="product-name">Wellness & Relaxation Package</div>
+          <div class="product-desc">Complete spa day for total relaxation.</div>
+          <div class="product-price">₱1899.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="10">
+          <span class="product-badge">Qty: 12</span>
+          <img src="image/placeholder.png" alt="Seasonal Promo" class="product-img" />
+          <div class="product-name">Seasonal Promo</div>
+          <div class="product-desc">Limited-time beauty packages at great value.</div>
+          <div class="product-price">₱1099.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="11">
+          <span class="product-badge">Qty: 8</span>
+          <img src="image/placeholder.png" alt="Haircut and Styling" class="product-img" />
+          <div class="product-name">Haircut and Styling</div>
+          <div class="product-desc">Personalized cut and style for every client.</div>
+          <div class="product-price">₱499.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="12">
+          <span class="product-badge">Qty: 11</span>
+          <img src="image/placeholder.png" alt="Manicure and Pedicure" class="product-img" />
+          <div class="product-name">Manicure and Pedicure</div>
+          <div class="product-desc">Clean, healthy nails for men and women.</div>
+          <div class="product-price">₱399.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="13">
+          <span class="product-badge">Qty: 13</span>
+          <img src="image/placeholder.png" alt="Body Scrub" class="product-img" />
+          <div class="product-name">Body Scrub</div>
+          <div class="product-desc">Gentle exfoliation for glowing skin.</div>
+          <div class="product-price">₱599.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="14">
+          <span class="product-badge">Qty: 6</span>
+          <img src="image/placeholder.png" alt="Spa Package" class="product-img" />
+          <div class="product-name">Relaxing Spa Package</div>
+          <div class="product-desc">Combination of massage, facial, and nail care.</div>
+          <div class="product-price">₱2499.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card" data-id="15">
+          <span class="product-badge">Qty: 9</span>
+          <img src="image/placeholder.png" alt="Special Event Makeup" class="product-img" />
+          <div class="product-name">Special Event Makeup</div>
+          <div class="product-desc">Flawless look for any event or occasion.</div>
+          <div class="product-price">₱1200.00</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="info-sections" id="testimonials">
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-chat-3-line"></i></div>
+        <div class="info-title">Testimonial</div>
+        <div class="info-desc">
+          “Best beauty studio in Muntinlupa! The staff is friendly and very professional. I always leave feeling amazing.” – Maria S., Local Client
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-chat-3-line"></i></div>
+        <div class="info-title">Testimonial</div>
+        <div class="info-desc">
+          “I love their facial treatments! My skin has never looked better. Highly recommended.” – Karen T., Client
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-chat-3-line"></i></div>
+        <div class="info-title">Testimonial</div>
+        <div class="info-desc">
+          “Affordable, professional, and convenient location. Jenlisse Beauty Studio is my go-to place for pampering.” – Liza R., Client
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="info-sections" id="faq">
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-question-answer-line"></i></div>
+        <div class="info-title">Do I need an appointment?</div>
+        <div class="info-desc">Appointments are recommended, especially for hair and spa services, but walk-ins are welcome when available.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-question-answer-line"></i></div>
+        <div class="info-title">Do you offer bridal packages?</div>
+        <div class="info-desc">Yes! We have complete bridal packages including hair, makeup, and spa services.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-question-answer-line"></i></div>
+        <div class="info-title">What payment methods do you accept?</div>
+        <div class="info-desc">Cash, GCash, and major credit/debit cards are accepted.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-question-answer-line"></i></div>
+        <div class="info-title">Is your studio hygienic and safe?</div>
+        <div class="info-desc">Absolutely. All tools and equipment are sterilized regularly, and safety protocols are strictly followed.</div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="info-sections" id="contact">
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-map-pin-line"></i></div>
+        <div class="info-title">Visit Us</div>
+        <div class="info-desc">
+          Block 1 Lot 3, Purok 5, Extension, Putatan, City of Muntinlupa, NCR, Fourth District, 1772, Philippines
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-mail-send-line"></i></div>
+        <div class="info-title">Email</div>
+        <div class="info-desc">
+          <a href="mailto:info@jenlissebeauty.com">info@jenlissebeauty.com</a>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-phone-line"></i></div>
+        <div class="info-title">Call / SMS</div>
+        <div class="info-desc">
+          <a href="tel:+639641514471">+63 964 151 4471</a>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-time-line"></i></div>
+        <div class="info-title">Business Hours</div>
+        <div class="info-desc">
+          Monday to Saturday: 8:00 AM – 7:00 PM<br>Sunday: Closed
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-global-line"></i></div>
+        <div class="info-title">Follow Us Online</div>
+        <div class="info-desc">
+          Website: <a href="https://www.jenlissebeauty.com" target="_blank">www.jenlissebeauty.com</a><br>
+          Facebook / Instagram / TikTok: @JenlisseBeautyStudio
+        </div>
+      </div>
+    </section>
+
+    <!-- Policy Links Section -->
+    <section class="policy-sections" id="policies">
+      <div class="policy-card">
+        <div class="policy-title">Privacy Policy</div>
+        <div class="policy-body">
+          Your privacy is important to us. We respect your information and will never share it with third parties without consent.<br><br>
+          <em>This is a placeholder. The detailed privacy policy will be available soon.</em>
+          <br><a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-title">Terms of Service</div>
+        <div class="policy-body">
+          By using Jenlisse Beauty Studio, you agree to our terms, including compliance with laws and respect for intellectual property.<br><br>
+          <em>This is a placeholder. Full terms to be published soon.</em>
+          <br><a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-title">Refund Policy</div>
+        <div class="policy-body">
+          Not satisfied with your purchase? We offer easy returns and exchanges for eligible products within 7 days of delivery.<br><br>
+          <em>This is a placeholder. Full refund policy coming soon.</em>
+          <br><a href="refund-policy.html">Refund Policy</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="image/LOGO.png" alt="Jenlisse Beauty Studio Logo" />
+          Jenlisse Beauty Studio
+        </div>
+        <div class="footer-desc">
+          Block 1 Lot 3, Purok 5, Extension, Putatan, City of Muntinlupa, NCR, Fourth District, 1772, Philippines<br>
+          Email: <a href="mailto:info@jenlissebeauty.com" style="color:var(--primary-dark);">info@jenlissebeauty.com</a><br>
+          Call / SMS: <a href="tel:+639641514471" style="color:var(--primary-dark);">+63 964 151 4471</a><br>
+          Registered Business Name: JENLISSE BEAUTY STUDIO<br>
+          Owner: Bautista, Jennilyn Surban<br>
+          Business Registration: 403-810-152-000<br>
+          VAT Registered
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Company</div>
+        <div class="footer-links">
+          <a href="#about" class="footer-link">About Us</a>
+          <a href="#shop" class="footer-link">Services</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Help</div>
+        <div class="footer-links">
+          <a href="#testimonials" class="footer-link">Testimonials</a>
+          <a href="#faq" class="footer-link">FAQ</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Legal</div>
+        <div class="footer-links">
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms.html" class="footer-link">Terms of Service</a>
+          <a href="refund-policy.html" class="footer-link">Refund Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="footer-year"></span> Jenlisse Beauty Studio | Business Registration: 403-810-152-000<br>
+      All content &copy; 2025 Jenlisse Beauty Studio. Proudly Muntinlupa, NCR.
+    </div>
+  </footer>
+
+  <script>
+    // Navigation for mobile
+    const navToggle = document.getElementById('nav-toggle');
+    const navClose = document.getElementById('nav-close');
+    const navList = document.getElementById('nav-list');
+    navToggle && navToggle.addEventListener('click', () => {
+      navList.classList.add('open');
+    });
+    navClose && navClose.addEventListener('click', () => {
+      navList.classList.remove('open');
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => navList.classList.remove('open'));
+    });
+
+    // Cart functionality
+    let cart = [];
+    const products = [
+      {
+        id: 1,
+        name: "Anti-Aging Facial",
+        price: 899.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 2,
+        name: "Acne Care Facial",
+        price: 799.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 3,
+        name: "Bridal Makeup Package",
+        price: 3500.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 4,
+        name: "Hair Color & Treatment",
+        price: 1200.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 5,
+        name: "Nail Art & Care",
+        price: 499.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 6,
+        name: "Massage Therapy",
+        price: 699.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 7,
+        name: "Eyebrow Threading & Tinting",
+        price: 299.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 8,
+        name: "Eyelash Extensions",
+        price: 999.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 9,
+        name: "Wellness & Relaxation Package",
+        price: 1899.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 10,
+        name: "Seasonal Promo",
+        price: 1099.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 11,
+        name: "Haircut and Styling",
+        price: 499.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 12,
+        name: "Manicure and Pedicure",
+        price: 399.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 13,
+        name: "Body Scrub",
+        price: 599.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 14,
+        name: "Relaxing Spa Package",
+        price: 2499.00,
+        img: "image/placeholder.png"
+      },
+      {
+        id: 15,
+        name: "Special Event Makeup",
+        price: 1200.00,
+        img: "image/placeholder.png"
+      }
+    ];
+
+    const cartBtn = document.getElementById('cart-btn');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartCloseBtn = document.getElementById('cart-close-btn');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartItemsCount = document.getElementById('cart-items-count');
+    const cartTotal = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const cartBadge = document.getElementById('cart-badge');
+
+    function openCart() {
+      cartSidebar.classList.add('open');
+      cartOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      cartSidebar.classList.remove('open');
+      cartOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    cartBtn && cartBtn.addEventListener('click', openCart);
+    cartCloseBtn && cartCloseBtn.addEventListener('click', closeCart);
+    cartOverlay && cartOverlay.addEventListener('click', closeCart);
+
+    // Add to cart logic
+    document.querySelectorAll('.product-add').forEach((btn, idx) => {
+      btn.addEventListener('click', function() {
+        const card = btn.closest('.product-card');
+        const pid = parseInt(card.getAttribute('data-id'));
+        addToCart(pid);
+      });
+    });
+
+    function addToCart(productId) {
+      const prod = products.find(p => p.id === productId);
+      const itemIndex = cart.findIndex(i => i.id === productId);
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += 1;
+      } else {
+        cart.push({
+          id: prod.id,
+          name: prod.name,
+          price: prod.price,
+          img: prod.img,
+          qty: 1
+        });
+      }
+      renderCart();
+    }
+
+    function increaseQty(productId) {
+      const item = cart.find(i => i.id === productId);
+      if (item) {
+        item.qty += 1;
+        renderCart();
+      }
+    }
+
+    function decreaseQty(productId) {
+      const item = cart.find(i => i.id === productId);
+      if (item && item.qty > 1) {
+        item.qty -= 1;
+        renderCart();
+      }
+    }
+
+    function removeItem(productId) {
+      cart = cart.filter(i => i.id !== productId);
+      renderCart();
+    }
+
+    function renderCart() {
+      cartItemsContainer.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<div style="text-align:center;color:#aaa;font-size:1rem;">Your cart is empty.</div>';
+      } else {
+        cart.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'cart-item';
+          div.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+            <div class="cart-item-details">
+              <div class="cart-item-title">${item.name}</div>
+              <div class="cart-item-price">₱${item.price}</div>
+              <div class="cart-item-qty">
+                <button class="cart-item-qty-btn" aria-label="Decrease quantity"><i class="ri-subtract-line"></i></button>
+                <span>${item.qty}</span>
+                <button class="cart-item-qty-btn" aria-label="Increase quantity"><i class="ri-add-line"></i></button>
+                <button class="cart-item-remove" aria-label="Remove item"><i class="ri-delete-bin-6-line"></i></button>
+              </div>
+            </div>
+          `;
+          div.querySelector('.cart-item-qty-btn[aria-label="Decrease quantity"]').addEventListener('click', function() {
+            decreaseQty(item.id);
+          });
+          div.querySelector('.cart-item-qty-btn[aria-label="Increase quantity"]').addEventListener('click', function() {
+            increaseQty(item.id);
+          });
+          div.querySelector('.cart-item-remove').addEventListener('click', function() {
+            removeItem(item.id);
+          });
+          cartItemsContainer.appendChild(div);
+        });
+      }
+      const totalQty = cart.reduce((total, i) => total + i.qty, 0);
+      cartItemsCount.textContent = totalQty;
+      cartTotal.textContent = '₱' + cart.reduce((total, i) => total + i.qty * i.price, 0).toFixed(2);
+      if (totalQty > 0) {
+        cartBadge.textContent = totalQty;
+        cartBadge.style.display = 'block';
+      } else {
+        cartBadge.style.display = 'none';
+      }
+    }
+    renderCart();
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+    checkoutBtn && checkoutBtn.addEventListener('click', function() {
+      localStorage.setItem('checkoutCart', JSON.stringify(cart));
+      window.location.href = "order-summary.html";
+    });
+
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    window.addEventListener('scroll', function() {
+      if(window.scrollY > 400) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
